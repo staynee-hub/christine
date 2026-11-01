@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Family Recipe Book</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Recipes">
+<meta name="theme-color" content="#FDE598" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#241A21" media="(prefers-color-scheme: dark)">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" href="icons/icon-192.png">
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<div class="wrap">
+  <header class="head">
+    <div>
+      <h1>Family Recipe Book</h1>
+      <p class="sub" id="count">Loading recipes…</p>
+    </div>
+    <button class="btn" id="menuBtn" aria-haspopup="true" aria-controls="menu">•••</button>
+  </header>
+
+  <section class="panel" id="menu" hidden>
+    <h2>Backup and sync</h2>
+    <p class="sub">Your recipes are saved on this phone only. Export a backup now and then, and import a file to bring in recipes from your Claude artifact or another phone. Importing adds new recipes and updates the ones you already have. It never deletes anything.</p>
+    <div class="acts">
+      <button class="btn quiet" id="exportBtn">Export backup</button>
+      <label class="btn quiet filebtn">Import file<input type="file" id="importFile" accept=".json,application/json"></label>
+    </div>
+    <p class="sub" id="menuMsg" role="status"></p>
+  </section>
+
+  <section class="panel" id="form" hidden aria-labelledby="formTitle">
+    <h2 id="formTitle">Add recipe</h2>
+    <div class="grid">
+      <label class="full">Recipe name<input id="f-name" maxlength="120" placeholder="e.g. Pesto pasta" autocapitalize="words"></label>
+      <label>List<select id="f-status"><option value="regular">Regular (we make this)</option><option value="to-try">To try</option></select></label>
+      <label>Type<select id="f-kind"><option>Main dish</option><option>Veg or side</option><option>Sauce or staple</option></select></label>
+      <label>Cuisine<input id="f-cuisine" maxlength="40" placeholder="Filipino, Japanese, Italian…" autocapitalize="words"></label>
+      <label>Main protein<select id="f-protein"><option>Chicken</option><option>Pork</option><option>Beef</option><option>Seafood</option><option>Tofu or egg</option><option>Vegetarian</option><option>None</option></select></label>
+      <fieldset class="full"><legend>Good for (pick all that apply)</legend><div class="opts" id="f-meals"></div></fieldset>
+      <fieldset class="full"><legend>Can also be made with (swap the protein)</legend><div class="opts" id="f-alts"></div></fieldset>
+      <label>Active cook time (min)<input id="f-mins" type="number" min="0" max="240" inputmode="numeric"></label>
+      <label>Main method<select id="f-method"><option>Stovetop</option><option>Instant Pot</option><option>Air fryer</option><option>Oven</option><option>Steamer</option><option>Rice cooker</option><option>No cook</option></select></label>
+      <label>Helper can cook it<select id="f-helper"><option value="easy">Easily</option><option value="card">Needs a step-by-step card</option></select></label>
+      <label>Harper eats it<select id="f-harper"><option value="yes">Yes</option><option value="adapt">Easy to adapt (crunchy side)</option><option value="no">No</option></select></label>
+      <label>Cost per meal<select id="f-cost"><option value="$">$ (under $8)</option><option value="$$">$$ ($8 to $15)</option><option value="$$$">$$$ (over $15)</option></select></label>
+      <label class="check"><input id="f-ahead" type="checkbox">Can be made ahead or frozen</label>
+      <label class="full">Source (link, or who it came from)<input id="f-source" maxlength="300" placeholder="Paste a link, or write 'Mom' or 'Own recipe'" autocapitalize="off"></label>
+      <label class="full">Ingredients (one per line)<textarea id="f-ing"></textarea></label>
+      <label class="full">Steps<textarea id="f-steps"></textarea></label>
+      <label class="full">Notes<textarea id="f-notes" style="min-height:60px"></textarea></label>
+    </div>
+    <p class="sub" id="formErr" role="status"></p>
+    <div class="acts"><button class="btn" id="saveBtn">Save recipe</button><button class="btn quiet" id="cancelBtn">Cancel</button></div>
+  </section>
+
+  <div class="tools">
+    <input class="search" id="q" type="search" placeholder="Search name, ingredient, cuisine…" aria-label="Search recipes" autocomplete="off">
+    <div class="selects"><select id="fMeal" aria-label="Filter by meal"></select><select id="fProt" aria-label="Filter by protein"></select></div>
+    <div class="chips" id="chips"></div>
+  </div>
+
+  <div class="list" id="list" aria-live="polite"></div>
+</div>
+
+<button class="fab" id="addBtn" aria-label="Add recipe">+</button>
+
+<script src="app.js"></script>
+</body>
+</html>
